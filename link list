@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int data;
+	struct node* link;
+};
+void addnode(struct node **p,int dat)
+{
+	struct node* temp=NULL;
+	struct node *temp1=NULL;
+	temp=(struct node*)(malloc(sizeof(struct node)));
+	temp->data=dat;
+	temp->link=NULL;
+	temp1=*p;
+	while(temp1->link != NULL)
+	{
+		temp1=temp1->link;
+	}
+	temp1->link=temp;
+}
+void addnode1(struct node** p,int dat)
+{
+	struct node* temp=NULL;
+	temp=(struct node*)(malloc(sizeof(struct node)));
+	temp->data=dat;
+	temp->link=*p;
+	*p=temp;
+}
+void deletenode(struct node** p,int dat)
+{
+	struct node* temp=NULL;
+	struct node* temp1=NULL;
+	temp=*p;
+	while(temp->data != dat)
+	{
+		temp1=temp;
+		temp=temp->link;
+	}
+	temp1->link=temp->link;
+}
+
+
+int main()
+{
+	int i=0;
+	struct node* p=NULL;
+	struct node* q=NULL;
+	struct node* sam=NULL;
+	p=(struct node*)(malloc(sizeof(struct node)));
+	q=(struct node*)(malloc(sizeof(struct node)));
+	p->data=10;
+	p->link=q;
+	q->data=5;
+	q->link=NULL;
+	int n,m;
+	scanf("%d %d",&n,&m);
+	addnode(&p,n);
+	addnode1(&p,m);
+	deletenode(&p,5);
+	sam=p;
+	while(sam->link !=NULL)
+	{
+		printf("%d\n",sam->data);
+		sam=sam->link;
+	}
+	printf("%d",sam->data);
+}
+
