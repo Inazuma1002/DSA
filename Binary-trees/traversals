@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node* left;
+    struct node* right;
+};
+struct node* newnode(int data)
+{
+    struct node* new=(struct node*)(malloc(sizeof(struct node)));
+    new->data=data;
+    new->left=NULL;
+    new->right=NULL;
+
+    return new;
+}
+void preprintnode(struct node* n)
+{
+    if(n==NULL)return;
+    printf("%d ",n->data);
+    preprintnode(n->left);
+    preprintnode(n->right);
+}
+void inorderprintnode(struct node* n)
+{
+    if(n==NULL)return;
+    inorderprintnode(n->left);
+    printf("%d ",n->data);
+    inorderprintnode(n->right);
+}
+void postorderprintnode(struct node* n)
+{
+    if(n==NULL)return;
+    postorderprintnode(n->left);
+    postorderprintnode(n->right);
+    printf("%d ",n->data);
+}
+int main()
+{
+    int i=0;
+    struct node* n1=newnode(1);
+    n1->left=newnode(2);
+    n1->right=newnode(3);
+    n1->left->left=newnode(5);
+    n1->left->right=newnode(6);
+    n1->right->right=newnode(7);
+    preprintnode(n1);
+    printf("\n");
+    inorderprintnode(n1);
+    printf("\n");
+    postorderprintnode(n1);
+    
+    return 0;
+}
