@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define max_size 500
+struct node{
+    int data;
+    struct node* left;
+    struct node* right;
+};
+struct node* newnode(int data)
+{
+    struct node* new=(struct node*)(malloc(sizeof(struct node)));
+    new->data=data;
+    new->left=NULL;
+    new->right=NULL;
+    
+    return new;
+}
+struct node** createnode(int* front,int*rear)
+{
+    struct node** queue=(struct node**)(malloc(sizeof(struct node*)*max_size));
+    *front=*rear=0;
+    return queue;
+}
+
+void Enqueue(struct node** queue,int* rear,struct node* new_node)
+{
+    queue[*rear]=new_node;
+    (*rear)++;
+}
+struct node* Dequeue(int* front,struct node** queue)
+{
+    (*front)++;
+    return queue[*front-1];
+}
+void level_order_traversel(struct node* n)
+{
+    int front,rear;
+    struct node** queue=createnode(&front,&rear);
+    struct node* temp_node=n;
+    while(temp_node)
+    {
+        printf("%d ",temp_node->data);
+        if(temp_node->left)Enqueue(queue,&rear,temp_node->left);
+        if(temp_node->right)Enqueue(queue,&rear,temp_node->right);
+    
+        temp_node=Dequeue(&front,queue);
+    }
+}
+int main()
+{
+    int i=0;
+    struct node* n1=newnode(1);
+    n1->left=newnode(2);
+    n1->right=newnode(3);
+    n1->left->left=newnode(5);
+    n1->left->right=newnode(6);
+    n1->right->right=newnode(7);
+    
+    level_order_traversel(n1);    
+    return 0;
+}
